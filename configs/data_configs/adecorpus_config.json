@@ -1,0 +1,21 @@
+{
+    "dataset_name": "ADECORPUS",
+    "tasks": [
+        "RE"
+    ],
+    "dataloader_cls": "src.tasks.adecorpus.data_loader.ADECorpusDatasetLoader",
+    "sampler_cls": "src.tasks.adecorpus.data_loader.ADECorpusSampler",
+    "test_file": "data/ADECorpus/adecorpus_test.json",
+    "prompt_template": "templates/prompt.txt",
+    "seed": [0, 24, 42],
+    "label_noise_prob": [0.15, 0.50, 0.75],
+    "task_configuration": {
+        "RE": {
+            "group_by": "sentence",
+            "parallel_instances": 1,
+            "max_guidelines": -1,
+            "guideline_dropout": 0.15,
+            "scorer": "src.tasks.adecorpus.scorer.ADECorpusCoarseRelationScorer"
+        }
+    }
+}

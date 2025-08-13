@@ -1,0 +1,21 @@
+{
+    "dataset_name": "CONLL04",
+    "tasks": [
+        "RE"
+    ],
+    "dataloader_cls": "src.tasks.conll04.data_loader.Conll04DatasetLoader",
+    "sampler_cls": "src.tasks.conll04.data_loader.Conll04Sampler",
+    "test_file": "data/conll04/test.json",
+    "prompt_template": "templates/prompt.txt",
+    "seed": [0, 24, 42],
+    "label_noise_prob": [0.15, 0.50, 0.75],
+    "task_configuration": {
+        "RE": {
+            "group_by": "sentence",
+            "parallel_instances": 1,
+            "max_guidelines": -1,
+            "guideline_dropout": 0.15,
+            "scorer": "src.tasks.conll04.scorer.Conll04CoarseRelationScorer"
+        }
+    }
+}

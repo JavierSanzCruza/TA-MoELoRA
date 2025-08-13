@@ -1,0 +1,146 @@
+# global seed
+global_seed: 42
+
+#Training args
+model_name_or_path: codellama/CodeLlama-7b-hf
+torch_dtype: bfloat16
+use_lora: true
+lora_type: moelora
+moe_type: pt_task_aware
+quantization: null
+quantization_inference: null
+gradient_checkpointing: true
+force_auto_device_map: false
+use_flash_attention: true
+
+# dataset arguments
+dataset_dir:
+  ./datasets
+train_tasks:
+  - ace05.eae
+  - ace05.ee
+  - ace05.ner
+  - ace05.rc
+  - ace05.re
+  - ace05.ver
+  - bc5cdr.ner
+  - conll03.ner
+  - diann.ner
+  - ncbidisease.ner
+  - ontonotes5.ner
+  - rams.eae
+  - tacred.sf
+  - wnut17.ner
+validation_tasks:
+  - ace05.eae
+  - conll03.ner
+test_tasks:
+  - ace05.eae
+  - ace05.ee
+  - ace05.ner
+  - ace05.re
+  - bc5cdr.ner
+  - conll03.ner
+  - diann.ner
+  - ncbidisease.ner
+  - ontonotes5.ner
+  - rams.eae
+  - tacred.sf
+  - wikievents.eae
+  - wikievents.ee
+  - wikievents.ner
+  - wnut17.ner
+  - broadtwitter.ner
+  - fabner.ner
+  - harveyner.ner
+  - casie.eae
+  - casie.ee
+  - mitmovie.ner
+  - mitrestaurant.ner
+  - crossner.crossner_ai
+  - crossner.crossner_music
+  - crossner.crossner_politics
+  - crossner.crossner_literature
+  - crossner.crossner_natural_science
+  - e3c.ner
+  - gids.re
+  - phee.ee
+  - phee.eae
+  - kbp37.re
+  - nyt11.re
+  - semeval.re
+  - conll04.re
+  - scierc.re
+  - adecorpus.re
+  - multinerd.ner
+max_examples_per_task_train: 30000
+max_examples_per_task_val: 5000
+max_examples_per_task_test: null
+max_seq_length: 2048
+generation_max_length: 2048
+ignore_pad_token_for_loss: true
+prompt_loss_weight: 0.0
+
+# task encoder
+task_embedding_model: Salesforce/codet5-base
+task_dim: 768
+
+# checkpoint settings
+output_dir: ./outputs
+overwrite_output_dir: true
+load_best_model_at_end: false
+save_strategy: "epoch"
+save_steps: 1000
+save_total_limit: 999
+# lora_weights_name_or_path: ./outputs
+
+# evaluation
+do_train: true
+do_eval: true
+do_predict: true
+evaluation_strategy: "epoch"
+eval_steps: 1000
+eval_delay: 0
+predict_with_generate: true
+evaluate_all_checkpoints: false
+
+# batch size
+per_device_train_batch_size: 1
+per_device_eval_batch_size: 4
+gradient_accumulation_steps: 16
+generation_num_beams: 1
+
+# optimizer settings
+optim: adamw_torch_fused
+learning_rate: 0.0003
+weight_decay: 0.0
+num_train_epochs: 3
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+adam_epsilon: 1e-7
+
+# lora settings
+lora_r: 4
+lora_alpha: 32
+lora_dropout: 0.05
+lora_nums: 8
+lora_target_modules:
+  - all
+  
+# reporting
+logging_strategy: steps
+logging_first_step: true
+logging_steps: 25
+report_to: wandb
+run_name: "MoELoRA_task_aware"
+disable_tqdm: false
+
+# hub settings
+push_to_hub: false
+resume_from_checkpoint: false
+
+# performance
+bf16: true
+fp16: false
+torch_compile: false
+ddp_find_unused_parameters: false

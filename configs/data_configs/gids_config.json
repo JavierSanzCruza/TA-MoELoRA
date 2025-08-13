@@ -1,0 +1,21 @@
+{
+    "dataset_name": "GIDS",
+    "tasks": [
+        "RE"
+    ],
+    "dataloader_cls": "src.tasks.gids.data_loader.GIDSDatasetLoader",
+    "sampler_cls": "src.tasks.gids.data_loader.GIDSSampler",
+    "test_file": "data/iepile/IE-en/RE/GIDS/test.json",
+    "prompt_template": "templates/prompt.txt",
+    "seed": [0, 24, 42],
+    "label_noise_prob": [0.15, 0.50, 0.75],
+    "task_configuration": {
+        "RE": {
+            "group_by": "sentence",
+            "parallel_instances": 1,
+            "max_guidelines": -1,
+            "guideline_dropout": 0.15,
+            "scorer": "src.tasks.gids.scorer.GIDSCoarseRelationScorer"
+                }
+    }
+}

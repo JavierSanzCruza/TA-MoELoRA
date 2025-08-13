@@ -1,0 +1,7 @@
+torch==2.2.0
+transformers==4.44.2
+accelerate==0.34.2
+bitsandbytes==0.43.3
+black==24.8.0
+datasets==3.0.0
+flash-attn==2.5.8

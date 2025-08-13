@@ -1,0 +1,21 @@
+{
+    "dataset_name": "KBP37",
+    "tasks": [
+        "RE"
+    ],
+    "dataloader_cls": "src.tasks.kbp37.data_loader.KBP37DatasetLoader",
+    "sampler_cls": "src.tasks.kbp37.data_loader.KBP37Sampler",
+    "test_file": "data/iepile/IE-en/RE/kbp37/test.json",
+    "prompt_template": "templates/prompt.txt",
+    "seed": [0, 24, 42],
+    "label_noise_prob": [0.15, 0.50, 0.75],
+    "task_configuration": {
+        "RE": {
+            "group_by": "sentence",
+            "parallel_instances": 1,
+            "max_guidelines": -1,
+            "guideline_dropout": 0.15,
+            "scorer": "src.tasks.kbp37.scorer.KBP37CoarseRelationScorer"
+        }
+    }
+}
