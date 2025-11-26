@@ -33,7 +33,7 @@ In order to execute the models included in this software, it is necessary to ins
 (tested on Python > 3.10.)
 
 - PyTorch > 2.2.0: `pip install torch`
-- Transformers > 4.44.2: `pip install transformers`
+- Transformers > 4.44.2, <= 4.49.0: `pip install transformers`
 - Accelerate > 0.34.2: `pip install accelerate`
 - Bitsandbites > 0.43.3: `pip install bitsandbites`
 - Black > 24.8.0: `pip install black`
@@ -52,14 +52,23 @@ git clone https://github.com/lubingzhiguo/TA-MoELoRA.git
 Once downloaded, the repository has the following structure:
 ```bash
 repository
-├── TA-MoELoRA
-└── peft_tamoelora
-└── notebooks
+├── bash_scripts
+├── configs
+│   ├── data_configs
+│   └── model_configs
+├── model_tamoelora
+├── notebooks
+├── peft_tamoelora
+└── Appendix.pdf
 ```
 
-where `TA-MoELoRA` contains the model, `peft_tamoelora` is a custom version of the [peft](https://github.com/huggingface/peft)
-library containing our implementation of the Mixture of Experts adapters and `notebooks` contains 
-notebook examples that can be used to train and run the model.
+where
+- `bash_scripts`: contains command line scripts for running the code in the repository.
+- `configs`: contains the configurations of datasets (`data_configs`) and models (`model_configs`)
+- `model_tamoelora`: contains the code for loading, training and applying the model.
+- `notebooks`: contains Jupyter notebook examples on how to train and apply the model.
+- `peft_tamoelora`: contains a custom implementation of the [peft](https://github.com/huggingface/peft) library, containing our implementation of the Mixture of Expert models with Task-Aware router.
+- `Appendix.pdf`: a PDF document containing the appendix of the paper.
 
 In order to be able to use the Task-Aware MoE LoRA models, it is first necessary to install the `peft_tamoelora` package.
 For this, use the following command.

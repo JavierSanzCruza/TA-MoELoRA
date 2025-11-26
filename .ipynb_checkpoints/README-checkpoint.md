@@ -11,7 +11,7 @@ conda create -n moelora python=3.10
 conda activate moelora
 
 git clone https://github.com/lubingzhiguo/TA-MoELoRA.git
-cd TA-MoELoRA
+cd model_tamoelora
 pip install -r requirements.txt
 cd peft_tamoelora
 pip install -e .
