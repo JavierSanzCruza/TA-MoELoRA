@@ -1,4 +1,11 @@
-## Task-Aware MoELoRA for UIE
+## Task-Aware MoELoRA for Universal Information Extraction
+
+This repository contains code and supplementary materials to reproduce the experiments in the 
+paper:
+
+> L. Guo, J. Sanz-Cruzado, R. McCreadie. [Selecting the Right Experts: Generalizing Information Extraction for Unseen Scenarios via Task-Aware Expert Weighting]()
+Code and supplementary materials for the Task-Aware MoELoRA model for universal information extraction
+
 
 Code and supplementary materials for "Selecting the Right Experts: Generalizing Information Extraction for Unseen Scenarios via Task-Aware Expert Weighting" (ECAI 2025)
 
@@ -13,7 +20,7 @@ conda activate moelora
 git clone https://github.com/lubingzhiguo/TA-MoELoRA.git
 cd TA-MoELoRA
 pip install -r requirements.txt
-cd peft
+cd peft_tamoelora
 pip install -e .
 ```
 

@@ -102,7 +102,7 @@ def get_peft_model(
             using float16 or bfloat16 to float32, as this is typically required for stable training, and only affect
             select PEFT tuners.
         revision (`str`, `optional`, defaults to `main`):
-            The revision of the base model. If this isn't set, the saved peft model will load the `main` revision for
+            The revision of the base model. If this isn't set, the saved peft_tamoelora model will load the `main` revision for
             the base model
     """
     model_config = BaseTuner.get_model_config(model)
@@ -119,7 +119,7 @@ def get_peft_model(
     if revision is not None:
         if peft_config.revision is not None and peft_config.revision != revision:
             warnings.warn(
-                f"peft config has already set base model revision to {peft_config.revision}, overwriting with revision {revision}"
+                f"peft_tamoelora config has already set base model revision to {peft_config.revision}, overwriting with revision {revision}"
             )
         peft_config.revision = revision
 
@@ -160,7 +160,7 @@ def inject_adapter_in_model(
 
     tuner_cls = PEFT_TYPE_TO_TUNER_MAPPING[peft_config.peft_type]
 
-    # By instantiating a peft model we are injecting randomly initialized LoRA layers into the model's modules.
+    # By instantiating a peft_tamoelora model we are injecting randomly initialized LoRA layers into the model's modules.
     peft_model = tuner_cls(model, peft_config, adapter_name=adapter_name)
 
     return peft_model.model

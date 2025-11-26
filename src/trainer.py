@@ -322,7 +322,7 @@ class CollieTrainer(Seq2SeqTrainer):
 
         # Find out if the model is a LoRA Peft Model
         # try:
-        #     from peft import PeftModel, LoraModel
+        #     from peft_tamoelora import PeftModel, LoraModel
 
         #     if isinstance(unwrap_model(self.model), PeftModel):
         #         if isinstance(unwrap_model(self.model).base_model, LoraModel):
@@ -334,7 +334,7 @@ class CollieTrainer(Seq2SeqTrainer):
         #     pass
 
         try:
-            from peft import PeftModel
+            from peft_tamoelora import PeftModel
         except ImportError:
             PeftModel = None
 

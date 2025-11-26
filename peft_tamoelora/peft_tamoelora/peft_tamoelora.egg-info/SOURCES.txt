@@ -1,10 +1,10 @@
 setup.py
 optimizers/__init__.py
 optimizers/loraplus.py
-peft.egg-info/PKG-INFO
-peft.egg-info/SOURCES.txt
-peft.egg-info/dependency_links.txt
-peft.egg-info/top_level.txt
+peft_tamoelora.egg-info/PKG-INFO
+peft_tamoelora.egg-info/SOURCES.txt
+peft_tamoelora.egg-info/dependency_links.txt
+peft_tamoelora.egg-info/top_level.txt
 tuners/__init__.py
 tuners/_buffer_dict.py
 tuners/tuners_utils.py

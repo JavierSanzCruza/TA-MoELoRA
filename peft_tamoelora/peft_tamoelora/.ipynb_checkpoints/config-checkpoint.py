@@ -33,7 +33,7 @@ class PeftConfigMixin(PushToHubMixin):
     directory. The method `from_pretrained` will load the configuration of your adapter model from a directory.
 
     Args:
-        peft_type (Union[[`~peft.utils.config.PeftType`], `str`]): The type of Peft method to use.
+        peft_type (Union[[`~peft_tamoelora.utils.config.PeftType`], `str`]): The type of Peft method to use.
     """
 
     peft_type: Optional[PeftType] = field(default=None, metadata={"help": "The type of PEFT model."})
@@ -93,13 +93,13 @@ class PeftConfigMixin(PushToHubMixin):
                 Keyword arguments passed along to the configuration initialization.
         """
         # Avoid circular dependency .. TODO: fix this with a larger refactor
-        from peft.mapping import PEFT_TYPE_TO_CONFIG_MAPPING
+        from peft_tamoelora.mapping import PEFT_TYPE_TO_CONFIG_MAPPING
 
         # TODO: this hack is needed to fix the following issue (on commit 702f937):
         # if someone saves a default config and loads it back with `PeftConfig` class it yields to
         # not loading the correct config class.
         #
-        # from peft import AdaLoraConfig, PeftConfig
+        # from peft_tamoelora import AdaLoraConfig, PeftConfig
         # peft_config = AdaLoraConfig()
         # print(peft_config)
         # >>> AdaLoraConfig(peft_type=<PeftType.ADALORA: 'ADALORA'>, auto_mapping=None, base_model_name_or_path=None,
@@ -232,8 +232,8 @@ class PeftConfig(PeftConfigMixin):
     This is the base configuration class to store the configuration of a [`PeftModel`].
 
     Args:
-        peft_type (Union[[`~peft.utils.config.PeftType`], `str`]): The type of Peft method to use.
-        task_type (Union[[`~peft.utils.config.TaskType`], `str`]): The type of task to perform.
+        peft_type (Union[[`~peft_tamoelora.utils.config.PeftType`], `str`]): The type of Peft method to use.
+        task_type (Union[[`~peft_tamoelora.utils.config.TaskType`], `str`]): The type of task to perform.
         inference_mode (`bool`, defaults to `False`): Whether to use the Peft model in inference mode.
     """
 

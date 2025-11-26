@@ -132,7 +132,7 @@ class BaseTuner(nn.Module, ABC):
         A private helper method to check if the passed module's key name matches any of the target modules in the
         adapter_config.
 
-    The easiest is to check what is done in the `peft.tuners.lora.LoraModel` class.
+    The easiest is to check what is done in the `peft_tamoelora.tuners.lora.LoraModel` class.
 
     Attributes:
         model (`torch.nn.Module`):
@@ -142,7 +142,7 @@ class BaseTuner(nn.Module, ABC):
         peft_config (`Union[`PeftConfig`, dict[str, PeftConfig]]`):
             The adapter configuration object, it should be a dictionary of `str` to `PeftConfig` objects. One can also
             pass a PeftConfig object and a new adapter will be created with the default name `adapter` or create a new
-            dictionary with a key `adapter_name` and a value of that peft config.
+            dictionary with a key `adapter_name` and a value of that peft_tamoelora config.
         config (`dict[str, Any]`):
             The model configuration object, it should be a dictionary of `str` to `Any` objects.
         targeted_module_names (`list[str]`):
@@ -216,7 +216,7 @@ class BaseTuner(nn.Module, ABC):
         `TRANSFORMERS_MODELS_TO_XXX_TARGET_MODULES_MAPPING`. This method can be further refactored in the future to
         automatically infer it for all tuner models.
 
-        Check out `peft.tuner.lora.LoraModel._prepare_adapter_config` for an example.
+        Check out `peft_tamoelora.tuner.lora.LoraModel._prepare_adapter_config` for an example.
 
         Args:
             peft_config (`PeftConfig`):
@@ -230,7 +230,7 @@ class BaseTuner(nn.Module, ABC):
         r"""
         A private method to modify the model structure before adapter is applied.
 
-        See `peft.tuner.lora.LoraModel._prepare_model` for an example.
+        See `peft_tamoelora.tuner.lora.LoraModel._prepare_model` for an example.
 
         Args:
             peft_config (`PeftConfig`):
@@ -268,7 +268,7 @@ class BaseTuner(nn.Module, ABC):
         Inplace replacement of the target module with the adapter layer. This method needs to be overridden by all the
         tuner classes.
 
-        Check `peft.tuners.lora.LoraModel._create_and_replace` for an example.
+        Check `peft_tamoelora.tuners.lora.LoraModel._create_and_replace` for an example.
 
         Args:
             peft_config (`PeftConfig`):
@@ -292,7 +292,7 @@ class BaseTuner(nn.Module, ABC):
         A helper method to mark only the adapter layers as trainable (i.e. module.requires_grad = False) This needs to
         be overridden for all tuner classes to match the correct key names.
 
-        Check `peft.tuners.lora.LoraModel._mark_only_adapters_as_trainable` for an example.
+        Check `peft_tamoelora.tuners.lora.LoraModel._mark_only_adapters_as_trainable` for an example.
         """
         ...
 
@@ -401,7 +401,7 @@ class BaseTuner(nn.Module, ABC):
     def inject_adapter(self, model: nn.Module, adapter_name: str, autocast_adapter_dtype: bool = True) -> None:
         r"""
         Creates adapter layers and replaces the target modules with the adapter layers. This method is called under the
-        hood by `peft.mapping.get_peft_model` if a non-prompt tuning adapter class is passed.
+        hood by `peft_tamoelora.mapping.get_peft_model` if a non-prompt tuning adapter class is passed.
 
         The corresponding PEFT config is directly retrieved from the `peft_config` attribute of the BaseTuner class.
 
@@ -817,7 +817,7 @@ def _find_minimal_target_modules(
 
     Example:
         ```py
-        >>> from peft.tuners.tuners_utils import _find_minimal_target_modules
+        >>> from peft_tamoelora.tuners.tuners_utils import _find_minimal_target_modules
 
         >>> target_modules = [f"model.decoder.layers.{i}.self_attn.q_proj" for i in range(100)]
         >>> target_modules += [f"model.decoder.layers.{i}.self_attn.v_proj" for i in range(100)]

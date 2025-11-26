@@ -13,7 +13,7 @@ conda activate moelora
 git clone https://github.com/lubingzhiguo/TA-MoELoRA.git
 cd TA-MoELoRA
 pip install -r requirements.txt
-cd peft
+cd peft_tamoelora
 pip install -e .
 ```
 

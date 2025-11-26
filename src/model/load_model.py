@@ -453,7 +453,7 @@ def load_model(
         # the following line and uncomment the next one.
         from .model_utils import prepare_model_for_kbit_training
 
-        # from peft import prepare_model_for_kbit_training
+        # from peft_tamoelora import prepare_model_for_kbit_training
 
         model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=use_gradient_checkpointing)
     else:
@@ -462,7 +462,7 @@ def load_model(
 
     # Load LoRA weights
     if use_lora:
-        from peft import LoraConfig, PeftModel, TaskType, get_peft_model, MoELoraConfig
+        from peft_tamoelora import LoraConfig, PeftModel, TaskType, get_peft_model, MoELoraConfig
 
         if not inference:
             model.enable_input_require_grads()  #  Enables the gradients for the input embeddings
@@ -527,7 +527,7 @@ def load_model(
 
     if use_lora:
         if lora_type == 'lora':
-            from peft.tuners.lora import LoraLayer
+            from peft_tamoelora.tuners.lora import LoraLayer
 
             for name, module in model.named_modules():
                 if isinstance(module, LoraLayer):
@@ -535,7 +535,7 @@ def load_model(
                         logging.debug(f"Converting LoRA layer {name} to {torch_dtype}")
                         module = module.to(torch.bfloat16)
         if lora_type == 'moelora':
-            from peft.tuners.moelora.layer import LoraLayer
+            from peft_tamoelora.tuners.moelora.layer import LoraLayer
             
             for name, module in model.named_modules():
                 if isinstance(module, LoraLayer):

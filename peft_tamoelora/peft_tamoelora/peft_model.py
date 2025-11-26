@@ -197,7 +197,7 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
                 A list of adapters to be saved. If `None`, will default to all adapters.
             save_embedding_layers (`Union[bool, str]`, *optional*, defaults to `"auto"`):
                 If `True`, save the embedding layers in addition to adapter weights. If `auto`, checks the common
-                embedding layers `peft.utils.other.EMBEDDING_LAYER_NAMES` in config's `target_modules` when available.
+                embedding layers `peft_tamoelora.utils.other.EMBEDDING_LAYER_NAMES` in config's `target_modules` when available.
                 and automatically sets the boolean flag. This only works for 🤗 transformers models.
             is_main_process (`bool`, *optional*):
                 Whether the process calling this is the main process or not. Will default to `True`. Will not save the
@@ -407,7 +407,7 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
             is_trainable (`bool`, *optional*, defaults to `False`):
                 Whether the adapter should be trainable or not. If `False`, the adapter will be frozen and can only be
                 used for inference.
-            config ([`~peft.PeftConfig`], *optional*):
+            config ([`~peft_tamoelora.PeftConfig`], *optional*):
                 The configuration object to use instead of an automatically loaded configuration. This configuration
                 object is mutually exclusive with `model_id` and `kwargs`. This is useful when configuration is already
                 loaded before calling `from_pretrained`.
@@ -835,7 +835,7 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
         """
         if peft_config.peft_type != self.peft_type:
             raise ValueError(
-                f"Cannot combine adapters with different peft types. "
+                f"Cannot combine adapters with different peft_tamoelora types. "
                 f"Found {self.peft_type} and {peft_config.peft_type}."
             )
 
@@ -893,7 +893,7 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
                 The model to get the adapter layer status from.
 
         Returns:
-            list[`peft.peft_model.TunerLayerStatus`]:
+            list[`peft_tamoelora.peft_model.TunerLayerStatus`]:
                 A list of dataclasses, each containing the status of the corresponding adapter layer.
 
         """
@@ -933,7 +933,7 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
                 The model to get the adapter layer status from.
 
         Returns:
-            `peft.peft_model.TunerModelStatus`:
+            `peft_tamoelora.peft_model.TunerModelStatus`:
                 A dataclass containing the status of the model.
 
         """
@@ -996,7 +996,7 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
                 new_fname_list = list(fname.split(os.sep))
                 for i, name in enumerate(new_fname_list):
                     if "--" in name:
-                        new_fname_list[i] += "-peft"
+                        new_fname_list[i] += "-peft_tamoelora"
                         break
                 new_fname = os.path.join(*new_fname_list)
 
@@ -1193,9 +1193,9 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
 
     def create_or_update_model_card(self, output_dir: str):
         """
-        Updates or create model card to include information about peft:
-        1. Adds `peft` library tag
-        2. Adds peft version
+        Updates or create model card to include information about peft_tamoelora:
+        1. Adds `peft_tamoelora` library tag
+        2. Adds peft_tamoelora version
         3. Adds base model info
         4. Adds quantization information if it was used
         """
@@ -1204,7 +1204,7 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
 
         card = ModelCard.load(filename) if os.path.exists(filename) else ModelCard.from_template(ModelCardData())
 
-        card.data["library_name"] = "peft"
+        card.data["library_name"] = "peft_tamoelora"
 
         model_config = BaseTuner.get_model_config(self)
         model_config = None if model_config == DUMMY_MODEL_CONFIG else model_config
@@ -1231,7 +1231,7 @@ class PeftModel(PushToHubMixin, torch.nn.Module):
             else:
                 lines.append(f"{training_procedure_heading}\n{training_config_text}")
 
-        # Adds peft version
+        # Adds peft_tamoelora version
         framework_block_heading = "### Framework versions"
         if f"- PEFT {__version__}" not in lines:
             if framework_block_heading in lines:
@@ -1264,7 +1264,7 @@ class PeftModelForSequenceClassification(PeftModel):
 
         ```py
         >>> from transformers import AutoModelForSequenceClassification
-        >>> from peft import PeftModelForSequenceClassification, get_peft_config
+        >>> from peft_tamoelora import PeftModelForSequenceClassification, get_peft_config
 
         >>> config = {
         ...     "peft_type": "PREFIX_TUNING",
@@ -1495,7 +1495,7 @@ class PeftModelForCausalLM(PeftModel):
 
         ```py
         >>> from transformers import AutoModelForCausalLM
-        >>> from peft import PeftModelForCausalLM, get_peft_config
+        >>> from peft_tamoelora import PeftModelForCausalLM, get_peft_config
 
         >>> config = {
         ...     "peft_type": "PREFIX_TUNING",
@@ -1723,7 +1723,7 @@ class PeftModelForSeq2SeqLM(PeftModel):
 
         ```py
         >>> from transformers import AutoModelForSeq2SeqLM
-        >>> from peft import PeftModelForSeq2SeqLM, get_peft_config
+        >>> from peft_tamoelora import PeftModelForSeq2SeqLM, get_peft_config
 
         >>> config = {
         ...     "peft_type": "LORA",
@@ -1987,7 +1987,7 @@ class PeftModelForTokenClassification(PeftModel):
 
         ```py
         >>> from transformers import AutoModelForSequenceClassification
-        >>> from peft import PeftModelForTokenClassification, get_peft_config
+        >>> from peft_tamoelora import PeftModelForTokenClassification, get_peft_config
 
         >>> config = {
         ...     "peft_type": "PREFIX_TUNING",
@@ -2206,7 +2206,7 @@ class PeftModelForQuestionAnswering(PeftModel):
 
         ```py
         >>> from transformers import AutoModelForQuestionAnswering
-        >>> from peft import PeftModelForQuestionAnswering, get_peft_config
+        >>> from peft_tamoelora import PeftModelForQuestionAnswering, get_peft_config
 
         >>> config = {
         ...     "peft_type": "LORA",
@@ -2445,7 +2445,7 @@ class PeftModelForFeatureExtraction(PeftModel):
 
         ```py
         >>> from transformers import AutoModel
-        >>> from peft import PeftModelForFeatureExtraction, get_peft_config
+        >>> from peft_tamoelora import PeftModelForFeatureExtraction, get_peft_config
 
         >>> config = {
         ...     "peft_type": "LORA",
@@ -2572,7 +2572,7 @@ def get_layer_status(model: torch.nn.Module) -> list[TunerLayerStatus]:
             The model to get the adapter layer status from.
 
     Returns:
-        list[`peft.peft_model.TunerLayerStatus`]:
+        list[`peft_tamoelora.peft_model.TunerLayerStatus`]:
             A list of dataclasses, each containing the status of the corresponding adapter layer.
 
     """
@@ -2705,7 +2705,7 @@ def get_model_status(model: torch.nn.Module) -> TunerModelStatus:
             The model to get the adapter layer status from.
 
     Returns:
-        `peft.peft_model.TunerModelStatus`:
+        `peft_tamoelora.peft_model.TunerModelStatus`:
             A dataclass containing the status of the model.
 
     """

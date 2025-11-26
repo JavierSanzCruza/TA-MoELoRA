@@ -64,7 +64,7 @@ def get_peft_model_state_dict(
             Whether to unwrap the model if torch.compile was used.
         save_embedding_layers (`Union[bool, str]`, , *optional*, defaults to `auto`):
             If `True`, save the embedding layers in addition to adapter weights. If `auto`, checks the common embedding
-            layers `peft.utils.other.EMBEDDING_LAYER_NAMES` in config's `target_modules` when available. Based on it
+            layers `peft_tamoelora.utils.other.EMBEDDING_LAYER_NAMES` in config's `target_modules` when available. Based on it
             sets the boolean flag. This only works for 🤗 transformers models.
     """
     if unwrap_compiled:
